@@ -5,7 +5,7 @@ export class MainMenu extends Phaser.Scene {
 
     preload() {
         this.load.path = "../assets/";
-        this.load.image("titleScreen","jobhuntTitleScreen.png");
+        this.load.image("titleScreen","jobhunt_map.png");
     }
     create() {
         // add background image
@@ -16,17 +16,13 @@ export class MainMenu extends Phaser.Scene {
         // add graphics
         let graphics = this.add.graphics();
 
-        // set fill color, line color, line width
-        let fillColor = 0xeb8881;
-        let alpha = 1;
-        let lineColor = 0xcc3f35;
-        let lineWidth = 10;
+        // style and draw rectangle
+        graphics.fillStyle(0xeb8881, 1);
+        graphics.lineStyle(10, 0xcc3f35);
 
-        graphics.fillStyle(fillColor, alpha);
-        graphics.lineStyle(lineWidth, lineColor);
-        
-        // draw rounded rectangle
-        graphics.fillRoundedRect(0.25 * this.sys.game.config.width, 0.65 * this.sys.game.config.height, 200, 100, 20)
-        graphics.strokeRoundedRect(0.25 * this.sys.game.config.width, 0.65 * this.sys.game.config.height, 200, 100, 20)
+        graphics.fillRoundedRect(0.25 * this.sys.game.config.width, 0.7 * this.sys.game.config.height, 200, 100, 20);
+        graphics.strokeRoundedRect(0.25 * this.sys.game.config.width, 0.7 * this.sys.game.config.height, 200, 100, 20);
+
+        // style
     }
 }
