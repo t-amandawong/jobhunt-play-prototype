@@ -3,26 +3,54 @@ export class MainMenu extends Phaser.Scene {
         super("mainmenu");
     }
 
-    preload() {
-        this.load.path = "../assets/";
-        this.load.image("titleScreen","jobhunt_map.png");
-    }
-    create() {
-        // add background image
-        let titleScreen = this.add.image(0, 0, 'titleScreen');
-        titleScreen.setOrigin(0, 0);
-        titleScreen.setScale(this.sys.game.config.width / titleScreen.width);
+    create(data) {
+        this.cameras.main.setAlpha(0);
 
-        // add graphics
+        // display map image
+        let map = this.add.image(this.game.config.width * 0.6, this.game.config.height * 0.5, 'map');
+        map.setOrigin(0.5, 0.5)
+        map.setScale(0.55)
+        console.log(map)
+
+        // init graphics
         let graphics = this.add.graphics();
+        graphics.fillStyle(0xC3DAFC, 1);
+        graphics.lineStyle(5, 0x5798DC, 1);
 
-        // style and draw rectangle
-        graphics.fillStyle(0xeb8881, 1);
-        graphics.lineStyle(10, 0xcc3f35);
+        // settings button
+        let settings = this.add.image(this.game.config.width * 0.95, this.game.config.height * 0.05, 'settings')
+        settings.setScale(0.15)
 
-        graphics.fillRoundedRect(0.25 * this.sys.game.config.width, 0.7 * this.sys.game.config.height, 200, 100, 20);
-        graphics.strokeRoundedRect(0.25 * this.sys.game.config.width, 0.7 * this.sys.game.config.height, 200, 100, 20);
+        // "select mode" title
+        graphics.fillRoundedRect(600, this.game.config.height * 0.1, 500, 50, 20)
+        graphics.strokeRoundedRect(600, this.game.config.height * 0.1, 500, 50, 20)
 
-        // style
+        let title = this.add.text(775, this.game.config.height * 0.1 + 10, 'Select Mode', { font: '30px Arial', fill: '#000000' });
+
+        // players tab
+        graphics.fillRoundedRect(30, this.game.config.height * 0.05, 250, 700, 20)
+        graphics.strokeRoundedRect(30, this.game.config.height * 0.05, 250, 700, 20)
+        let players = this.add.text(75, this.game.config.height * 0.05 + 10, 'Players (1)', { font: '30px Arial', fill: '#000000' });
+        
+        graphics.fillStyle(0x5798DC, 1)
+        for(let i = 0; i < 10; i++) {
+            graphics.fillRoundedRect(42, 120 + (i * 60), 225, 50, 20)
+        }
+
+        // spectate tab
+
+
+        // bots tab
+
+
+        // fade in
+        if (data.transitionEffect) {
+            this.tweens.add({
+                targets: this.cameras.main,
+                alpha: 1,
+                duration: data.transitionEffect.duration,
+                ease: 'Linear'
+            });
+        }
     }
 }

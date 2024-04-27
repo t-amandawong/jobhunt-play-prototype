@@ -4,9 +4,9 @@ export class Boot extends Phaser.Scene {
     }
 
     preload() {
-        this.load.path = "../assets/"
+        this.load.path = "../assets/";
         this.load.image("titleScreen","jobhuntTitleScreen.png");
-        this.load.image("loading", "TEMPloading.png")
+        this.load.image("loading", "TEMPloading.png");
     }
 
     create() {
