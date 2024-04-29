@@ -9,6 +9,7 @@ export class Preloader extends Phaser.Scene {
         this.load.image("map", "jobhunt_map.png");
         this.load.image("battle1", "battle1.png");
         this.load.image("settings", "TEMPsettings.png");
+        this.load.image("star", "TEMPstar.png")
     }
 
     create ()
@@ -22,7 +23,7 @@ export class Preloader extends Phaser.Scene {
         this.scale.displaySize.setAspectRatio(this.sys.game.config.width/this.sys.game.config.height);
         this.scale.refresh();
 
-        let loading = this.add.image(this.sys.game.config.width * 0.32, this.sys.game.config.height * 0.8, 'loading')
+        let loading = this.add.image(this.sys.game.config.width * 0.315, this.sys.game.config.height * 0.87, 'loading')
         loading.setScale(0.25)
         this.tweens.add({
             targets: loading,
@@ -34,7 +35,7 @@ export class Preloader extends Phaser.Scene {
 
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-        this.time.delayedCall(2600, ()=> {
+        this.time.delayedCall(100, ()=> {
             this.scene.transition({
                 target: 'mainmenu',
                 duration: 1000,
