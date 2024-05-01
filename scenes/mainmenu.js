@@ -13,8 +13,25 @@ export class MainMenu extends Phaser.Scene {
         let map = this.add.image(mapCenterX, mapCenterY, 'map').setOrigin(0.5).setScale(mapScale)
 
         // add map buttons -- TODO:: set interactive
-        let star1 = this.add.image(this.game.config.width * 0.63, this.game.config.height * 0.48, 'star').setOrigin(0.5).setScale(0.15)
-        let star2 = this.add.image(this.game.config.width * 0.44, this.game.config.height * 0.41, 'star').setOrigin(0.5).setScale(0.15)
+        let star1 = this.add.image(this.game.config.width * 0.63, this.game.config.height * 0.48, 'star')
+        star1.setOrigin(0.5).setScale(0.15).setInteractive()
+        let star2 = this.add.image(this.game.config.width * 0.44, this.game.config.height * 0.41, 'star')
+        star2.setOrigin(0.5).setScale(0.15).setInteractive()
+
+        this.add.text(this.game.config.width * 0.65, this.game.config.height * 0.48, 'AI interviewer mode', {
+            font: '40px Arial',
+            fill: '#000000'
+        });
+
+        star1.on('pointerdown', () => {
+            this.scene.transition({
+                target: 'interview',
+                duration: 1000,
+                moveBelow: true,
+                data: {transitionEffect: { duration: 2000 }},
+                onUpdate: this.transitionOut,
+            });
+        })
 
         // init graphics
         let graphics = this.add.graphics();
@@ -52,8 +69,8 @@ export class MainMenu extends Phaser.Scene {
 
         graphics.fillRoundedRect(playerX, playerY, playerWidth, playerHeight, cornerRadius)
         graphics.strokeRoundedRect(playerX, playerY, playerWidth, playerHeight, cornerRadius)
-    
 
+        
         // player text -- TODO: SET INTERACTIVE
         let playerTextY = playerY + selectHeight * 0.6
         let players = this.add.text(playerCenterX, playerTextY, 'Players (1)', {
@@ -87,16 +104,18 @@ export class MainMenu extends Phaser.Scene {
         graphics.fillRoundedRect(plusButtonX, spectateY, plusButtonWidth, spectateHeight, cornerRadius)
         graphics.strokeRoundedRect(plusButtonX, spectateY, plusButtonWidth, spectateHeight, cornerRadius)
 
-
         // eye symbol
         let eyeRadius = spectateHeight/2
         graphics.fillCircle(plusButtonX - eyeRadius * 1.2, spectateY + eyeRadius, eyeRadius)
+        let eye = this.add.text(plusButtonX - eyeRadius * 1.2, spectateY + eyeRadius, '👁️', {
+            font: '40px Arial'
+        }).setOrigin(0.5)
 
         // bots tab -- TODO: add text & set interactive
         let botsX = mapStart
         graphics.fillRoundedRect(botsX, spectateY, this.game.config.width * 0.1, spectateHeight, cornerRadius)
 
-        // fade in
+        // fade in from last transition
         if (data.transitionEffect) {
             this.tweens.add({
                 targets: this.cameras.main,
@@ -105,5 +124,9 @@ export class MainMenu extends Phaser.Scene {
                 ease: 'Linear'
             });
         }
+    }
+
+    transitionOut(progress) {
+        this.cameras.main.setAlpha(1 - progress);
     }
 }

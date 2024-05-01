@@ -1,6 +1,7 @@
 import { Boot } from './scenes/boot.js'
 import { MainMenu } from './scenes/mainmenu.js' 
 import { Preloader } from './scenes/preloader.js';
+import { Interview } from './scenes/interview.js'
 
 const config = {
     type: Phaser.AUTO,
@@ -15,7 +16,8 @@ const config = {
     scene: [
         Boot,
         Preloader,
-        MainMenu
+        MainMenu,
+        Interview
     ]
 };
 

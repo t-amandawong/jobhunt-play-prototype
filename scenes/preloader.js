@@ -35,7 +35,7 @@ export class Preloader extends Phaser.Scene {
 
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-        this.time.delayedCall(100, ()=> {
+        this.time.delayedCall(2600, ()=> {
             this.scene.transition({
                 target: 'mainmenu',
                 duration: 1000,
